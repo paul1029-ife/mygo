@@ -299,12 +299,12 @@ export default function RequestPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="flex mb-12 overflow-x-hidden pb-2 scrollbar-hide">
-                <div className="flex bg-white/5 p-1 rounded-full border border-white/5 backdrop-blur-sm">
+                <div className="flex bg-white/5 p-1 border border-white/5 backdrop-blur-sm">
                   {TABS.map((tab) => (
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`relative px-6 py-3 rounded-full text-xs uppercase tracking-widest transition-colors duration-300 whitespace-nowrap ${
+                      className={`relative px-6 py-3 text-xs uppercase tracking-widest transition-colors duration-300 whitespace-nowrap ${
                         activeTab === tab.id
                           ? "text-black font-bold"
                           : "text-neutral-400 hover:text-white"
@@ -313,7 +313,7 @@ export default function RequestPage() {
                       {activeTab === tab.id && (
                         <motion.div
                           layoutId="activeTab"
-                          className="absolute inset-0 bg-[#D4AF37] rounded-full"
+                          className="absolute inset-0 bg-[#D4AF37] "
                           transition={{
                             type: "spring",
                             bounce: 0.2,
