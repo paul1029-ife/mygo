@@ -1,327 +1,475 @@
-import Navbar from "@/components/Navbar";
-import {
-  ArrowDownRight01Icon,
-  Airplane01Icon,
-  Calendar03Icon,
-  ArrowRight01Icon,
-  Tick01Icon,
-  StarIcon,
-} from "hugeicons-react";
+"use client";
 
-export default function Home() {
+import Image from "next/image";
+import Link from "next/link";
+import { Shield01Icon, ComputerIcon, Mail01Icon } from "hugeicons-react";
+import { motion, Transition, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
+import { Navbar } from "@/components/Navbar";
+import { BentoItem } from "@/components/BentoItem";
+import { PricingCard } from "@/components/PricingCard";
+const transition: Transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] };
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+export default function Page() {
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-black selection:text-white flex flex-col">
+    <main
+      className={`font-mono bg-[#020202] min-h-screen text-white selection:bg-[#D4AF37] selection:text-black overflow-x-hidden relative`}
+    >
+      <div
+        className="fixed inset-0 w-full h-full pointer-events-none z-50 opacity-20 mix-blend-overlay"
+        style={{ backgroundImage: "url('/noise.jpg')" }}
+      ></div>
+
       <Navbar />
+      <section
+        ref={targetRef}
+        className="relative w-full h-screen min-h-200 flex flex-col justify-center overflow-hidden"
+      >
+        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+          <motion.div
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 2.5, ease: "easeOut" }}
+            className="w-full h-full relative"
+          >
+            <Image
+              src="/background-v1.png"
+              alt="Luxury Jet Background"
+              fill
+              priority
+              className="object-cover object-center md:object-[80%_center]"
+              quality={95}
+            />
+          </motion.div>
+          <div className="absolute inset-0 bg-linear-to-r from-[#020202] via-[#020202]/80 to-transparent sm:via-[#020202]/40" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#020202] via-transparent to-black/40" />
+        </motion.div>
 
-      <main className="flex-1 grid grid-cols-1 lg:grid-cols-12 border-t border-gray-200 overflow-hidden">
-        <div className="lg:col-span-7 flex flex-col justify-between border-r border-gray-200 relative p-6 lg:p-12">
-          {/* Top Label */}
-          <div className="flex justify-between items-start mb-20">
-            <span className="font-mono text-xs uppercase tracking-widest text-gray-400">
-              ( 001 — MYGO PREMIER )
-            </span>
-            <div className="hidden md:flex md:items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              <span className="font-mono text-xs uppercase tracking-widest text-gray-500">
-                Concierge Active
+        <div className="relative z-10 w-full max-w-350 mx-auto px-6 grid grid-cols-1 md:grid-cols-12 h-full items-center">
+          <motion.div
+            className="md:col-span-8 lg:col-span-7"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div
+              variants={fadeInUp}
+              className="items-center gap-4 mb-6 group inline-flex"
+            >
+              <div className="h-px w-6 bg-[#D4AF37] transition-all duration-300 ease-out group-hover:w-12 group-hover:opacity-100 opacity-60" />
+
+              <span className="text-[#D4AF37] text-[11px] uppercase tracking-[0.3em] font-medium transition-transform duration-300 ease-out group-hover:translate-x-1">
+                Premium Concierge
               </span>
-            </div>
-          </div>
+            </motion.div>
 
-          <h1 className="group text-[14vw] lg:text-[9vw] leading-[0.8] font-semibold tracking-tighter uppercase -ml-1 lg:-ml-2">
-            <div className="transition-colors duration-300 group-hover:text-gray-300">
-              Concierge.
-            </div>
-            <div className="text-gray-300 transition-colors duration-300 hover:text-gray-900">
-              Simplified.
-            </div>
-          </h1>
+            <motion.h1
+              variants={fadeInUp}
+              className={`font-sans text-7xl md:text-8xl lg:text-[7.5rem] leading-[0.9] text-white mb-8`}
+            >
+              Life. <br />
+              <span className="italic text-neutral-500 hover:text-neutral-100 transition-colors ease-in-out duration-300 font-light">
+                Handled.
+              </span>
+            </motion.h1>
 
-          <div className="mt-12 lg:mt-0 flex flex-col md:flex-row gap-8 items-end justify-between">
-            <div className="max-w-md">
-              <p className="text-lg md:text-xl leading-relaxed font-medium tracking-tight">
-                Seamless lifestyle services designed to save you time, remove
-                friction, and deliver peace of mind.
-              </p>
-              <div className="mt-4 flex gap-4 text-sm font-mono text-gray-500 uppercase tracking-wide">
-                <span>• Efficiency</span>
-                <span>• Discretion</span>
-                <span>• Reliability</span>
-              </div>
-            </div>
+            <motion.p
+              variants={fadeInUp}
+              className="text-neutral-300 text-lg font-light max-w-md leading-relaxed mb-10 opacity-80"
+            >
+              Seamless lifestyle management designed to remove friction, save
+              time, and deliver peace of mind.
+            </motion.p>
 
-            {/* Scroll Indicator */}
-            <div className="hidden lg:flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full animate-bounce">
-              <ArrowDownRight01Icon size={20} className="text-gray-900" />
-            </div>
-          </div>
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-5"
+            >
+              <motion.button
+                whileHover={{
+                  filter: "brightness(1.1)",
+                }}
+                transition={transition}
+                className="px-8 py-4 bg-linear-to-r from-[#B88746] via-[#FDF5A6] to-[#B88746] text-black font-bold uppercase tracking-widest text-sm w-full md:w-auto shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+              >
+                Request Access
+              </motion.button>
+              <motion.button
+                whileHover={{ color: "#D4AF37", borderColor: "#D4AF37" }}
+                className="px-6 py-4 border-b border-white/30 text-white text-[11px] uppercase tracking-[0.2em] text-left sm:text-center w-fit"
+              >
+                Explore Membership
+              </motion.button>
+            </motion.div>
+          </motion.div>
         </div>
 
-        <div className="lg:col-span-5 flex flex-col h-full">
-          <div className="flex-1 grid grid-cols-2">
-            <div className="border-r border-b border-gray-200 p-6 flex flex-col justify-between hover:bg-gray-50 transition-colors duration-500 group">
-              <Airplane01Icon
-                size={32}
-                className="text-gray-400 group-hover:text-black transition-colors"
-                strokeWidth={1.5}
-              />
-              <div>
-                <h3 className="font-mono text-xs uppercase tracking-widest mb-2 text-gray-500">
-                  Travel & Mobility
-                </h3>
-                <p className="text-sm font-medium">
-                  Flight coordination, airport assistance & transfers.
-                </p>
-              </div>
-            </div>
-
-            {/* Cell 2: Lifestyle */}
-            <div className="border-b border-gray-200 p-6 flex flex-col justify-between hover:bg-gray-50 transition-colors duration-500 group">
-              <Calendar03Icon
-                size={32}
-                className="text-gray-400 group-hover:text-black transition-colors"
-                strokeWidth={1.5}
-              />
-              <div>
-                <h3 className="font-mono text-xs uppercase tracking-widest mb-2 text-gray-500">
-                  Lifestyle
-                </h3>
-                <p className="text-sm font-medium">
-                  Reservations, events, and bespoke requests.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-8 lg:p-12 border-b border-gray-200 bg-white">
-            <span className="font-mono text-xs uppercase tracking-widest text-gray-400 mb-4 block">
-              ( 002 — MEMBERSHIP )
-            </span>
-            <p className="text-md leading-normal text-gray-600 mb-4">
-              From <span className="text-black font-medium">Essential</span>{" "}
-              access to{" "}
-              <span className="text-black font-medium">Corporate</span>{" "}
-              retainers. We handle the details so you can focus on what truly
-              matters.
-            </p>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-black/60 group cursor-pointer hover:text-black transition-colors">
-              <span>View Tiers</span>
-              <ArrowRight01Icon size={14} />
-            </div>
-          </div>
-
-          <div className="relative flex-grow min-h-[250px] bg-[#111] overflow-hidden group cursor-pointer">
-            <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-gray-800 via-black to-black group-hover:opacity-60 transition-opacity duration-700"></div>
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-              <div className="z-10 mix-blend-difference text-white">
-                <span className="block font-mono text-xs uppercase tracking-widest mb-3 opacity-80">
-                  Ready to delegate?
-                </span>
-                <span className="text-2xl lg:text-3xl font-semibold tracking-tight group-hover:scale-105 transition-transform duration-500 block">
-                  Make a Request
-                </span>
-                <div className="mt-4 inline-flex items-center justify-center px-4 py-1 border border-white/20 rounded-full text-[10px] uppercase tracking-widest">
-                  Via Web / Email / WhatsApp
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-      <section className="w-full border-b border-gray-200 bg-white overflow-hidden flex flex-col lg:flex-row">
-        <div className="p-6 border-b lg:border-b-0 lg:border-r border-gray-200 lg:w-[200px] shrink-0 flex items-center">
-          <span className="font-mono text-xs uppercase tracking-widest text-gray-400">
-            ( 002 — NETWORK )
-          </span>
-        </div>
-
-        {/* Marquee Container */}
-        <div className="flex-1 relative flex items-center overflow-hidden py-10 lg:py-0 h-32 lg:h-24">
-          {/* Left/Right Fade Masks for elegance */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-
-          <div className="flex whitespace-nowrap animate-scroll hover:[animation-play-state:paused]">
-            {/* --- LOGO SET 1 --- */}
-            <div className="flex items-center gap-16 mx-8">
-              {/* Replace these spans with <Image /> components for actual logos */}
-              <span className="text-2xl font-serif text-gray-400 hover:text-black transition-colors cursor-pointer">
-                The Wheatbaker
-              </span>
-              <span className="text-xl font-sans font-bold tracking-widest text-gray-400 hover:text-black transition-colors cursor-pointer">
-                EMIRATES
-              </span>
-              <span className="text-2xl font-serif italic text-gray-400 hover:text-black transition-colors cursor-pointer">
-                Waldorf Astoria
-              </span>
-              <span className="text-xl font-mono font-semibold text-gray-400 hover:text-black transition-colors cursor-pointer">
-                VISTAJET
-              </span>
-              <span className="text-2xl font-serif text-gray-400 hover:text-black transition-colors cursor-pointer">
-                Ritz-Carlton
-              </span>
-              <span className="text-xl font-sans font-black tracking-tighter text-gray-400 hover:text-black transition-colors cursor-pointer">
-                NOBU
-              </span>
-              <span className="text-2xl font-serif italic text-gray-400 hover:text-black transition-colors cursor-pointer">
-                Four Seasons
-              </span>
-            </div>
-
-            {/* --- LOGO SET 2 (Duplicate) --- */}
-            <div className="flex items-center gap-16 mx-8">
-              <span className="text-2xl font-serif text-gray-400 hover:text-black transition-colors cursor-pointer">
-                The Wheatbaker
-              </span>
-              <span className="text-xl font-sans font-bold tracking-widest text-gray-400 hover:text-black transition-colors cursor-pointer">
-                EMIRATES
-              </span>
-              <span className="text-2xl font-serif italic text-gray-400 hover:text-black transition-colors cursor-pointer">
-                Waldorf Astoria
-              </span>
-              <span className="text-xl font-mono font-semibold text-gray-400 hover:text-black transition-colors cursor-pointer">
-                VISTAJET
-              </span>
-              <span className="text-2xl font-serif text-gray-400 hover:text-black transition-colors cursor-pointer">
-                Ritz-Carlton
-              </span>
-              <span className="text-xl font-sans font-black tracking-tighter text-gray-400 hover:text-black transition-colors cursor-pointer">
-                NOBU
-              </span>
-              <span className="text-2xl font-serif italic text-gray-400 hover:text-black transition-colors cursor-pointer">
-                Four Seasons
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="border-t border-gray-200 bg-white">
-        {/* Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-gray-200">
-          <div className="lg:col-span-12 p-6 lg:p-12 flex flex-col md:flex-row items-baseline gap-4 md:gap-12">
-            <span className="font-mono text-xs uppercase tracking-widest text-gray-400 shrink-0">
-              ( 003 — TIERS )
-            </span>
-            <h2 className="text-3xl md:text-5xl font-semibold tracking-tighter uppercase leading-[0.9]">
-              Select your level <br /> of access.
-            </h2>
-          </div>
-        </div>
-
-        {/* The Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12">
-          {/* Option 1: ESSENTIAL */}
-          <div className="lg:col-span-5 border-r border-gray-200 p-8 lg:p-12 flex flex-col justify-between min-h-[500px] hover:bg-gray-50 transition-colors duration-500">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-0 left-0 w-full z-20"
+        >
+          <div className="max-w-350 mx-auto px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-8">
             <div>
-              <div className="flex justify-between items-start mb-8">
-                <h3 className="font-mono text-sm uppercase tracking-widest text-gray-500">
-                  Mygo Essential
-                </h3>
-                <div className="px-3 py-1 border border-black rounded-full text-[10px] font-mono uppercase">
-                  Entry
-                </div>
-              </div>
-              <div className="mb-8">
-                <span className="text-4xl font-semibold tracking-tighter">
-                  ₦250k
-                </span>
-                <span className="text-sm text-gray-500 ml-2">/ year</span>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
-                  <Tick01Icon size={16} className="mt-0.5 shrink-0" />
-                  <span>Standard Concierge Access</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
-                  <Tick01Icon size={16} className="mt-0.5 shrink-0" />
-                  <span>Pay-per-service execution</span>
-                </li>
-                <li className="flex items-start gap-3 text-sm font-medium text-gray-700">
-                  <Tick01Icon size={16} className="mt-0.5 shrink-0" />
-                  <span>Digital Requests (Web/WhatsApp)</span>
-                </li>
-              </ul>
+              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block mb-1">
+                Availability
+              </span>
+              <span className="text-white font-serif text-lg">24/7/365</span>
             </div>
-
-            <button className="w-full py-4 mt-12 border border-gray-200 uppercase text-xs font-bold tracking-widest hover:bg-black hover:text-white transition-colors">
-              Apply for Essential
-            </button>
+            <div>
+              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block mb-1">
+                Coverage
+              </span>
+              <span className="text-white font-serif text-lg">
+                Global & Local
+              </span>
+            </div>
+            <div className="hidden md:block">
+              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block mb-1">
+                Response
+              </span>
+              <span className="text-white font-serif text-lg">Immediate</span>
+            </div>
+            <div className="flex items-center justify-end">
+              <p className="text-[10px] text-[#D4AF37] uppercase tracking-widest text-right">
+                Invitation Only
+              </p>
+            </div>
           </div>
+        </motion.div>
+      </section>
 
-          {/* Option 2: PREMIUM (Highlighted) */}
-          <div className="lg:col-span-7 bg-[#1a1a1a] text-white p-8 lg:p-12 flex flex-col justify-between min-h-[500px] relative overflow-hidden group">
-            {/* Decorative texture */}
-            <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
-              <StarIcon size={120} />
-            </div>
-
-            <div className="relative z-10">
-              <div className="flex justify-between items-start mb-8">
-                <h3 className="font-mono text-sm uppercase tracking-widest text-gray-400">
-                  Mygo Premium
-                </h3>
-                <div className="px-3 py-1 border border-white/30 rounded-full text-[10px] font-mono uppercase bg-white/10 backdrop-blur-md">
-                  Recommended
-                </div>
-              </div>
-              <div className="mb-8">
-                <span className="text-4xl md:text-6xl font-semibold tracking-tighter">
-                  ₦1.2M
+      <section className="py-24 md:py-32 bg-[#020202] relative">
+        <div className="max-w-350 mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          >
+            <motion.div variants={fadeInUp}>
+              <h2
+                className={`font-sans text-4xl md:text-6xl leading-tight mb-8`}
+              >
+                Concierge.{" "}
+                <span className="text-neutral-600 hover:text-neutral-100 transition-colors ease-in-out duration-300">
+                  Simplified.
                 </span>
-                <span className="text-sm text-gray-400 ml-2">/ year</span>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3 text-sm font-medium text-gray-300">
-                    <StarIcon
-                      size={16}
-                      className="mt-0.5 shrink-0 text-yellow-500 fill-yellow-500"
-                    />
-                    <span>Priority Handling (Skip the queue)</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm font-medium text-gray-300">
-                    <StarIcon
-                      size={16}
-                      className="mt-0.5 shrink-0 text-yellow-500 fill-yellow-500"
-                    />
-                    <span>Dedicated Concierge Manager</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm font-medium text-gray-300">
-                    <Tick01Icon size={16} className="mt-0.5 shrink-0" />
-                    <span>Preferential Access to Events</span>
-                  </li>
-                </ul>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3 text-sm font-medium text-gray-300">
-                    <Tick01Icon size={16} className="mt-0.5 shrink-0" />
-                    <span>Reduced Execution Fees</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm font-medium text-gray-300">
-                    <Tick01Icon size={16} className="mt-0.5 shrink-0" />
-                    <span>Extended Hours Support</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <button className="relative z-10 w-full py-4 mt-12 bg-white text-black uppercase text-xs font-bold tracking-widest hover:scale-[1.01] transition-transform">
-              Apply for Premium
-            </button>
-          </div>
+              </h2>
+            </motion.div>
+            <motion.div
+              className="space-y-6 text-neutral-400 hover:text-neutral-300 transition-color ease-in-out duration-300 font-light leading-relaxed text-lg"
+            >
+              <p>
+                <strong className="text-white">MYGO</strong> is a premium
+                concierge and lifestyle services company built around
+                efficiency, discretion, and reliability.
+              </p>
+              <p>
+                At MYGO, we handle the details so you can focus on what truly
+                matters. Every request is handled with care, urgency, and
+                attention to detail. From bespoke travel to daily errands, we
+                are the architects of your free time.
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      <footer className="w-full border-t border-gray-200 py-3 px-6 flex flex-col md:flex-row justify-between items-center bg-white z-10 gap-2">
-        <div className="flex gap-6 font-mono text-[10px] uppercase tracking-widest text-gray-500">
-          <span>Lat: 9.0579° N</span>
-          <span>Lon: 7.4951° E</span>
+      <section className="py-24 bg-[#050505] border-t border-white/5">
+        <div className="max-w-350 mx-auto px-6 mb-16 flex justify-between items-end">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="max-w-md"
+          >
+            <span className="text-[#D4AF37] text-xs uppercase tracking-widest mb-4 block">
+              Our Expertise
+            </span>
+            <h2 className={`font-sans text-5xl text-white`}>
+              Bespoke Solutions
+            </h2>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, ...transition }}
+            className="hidden md:block text-right"
+          >
+            <p className="text-neutral-300 text-sm max-w-xs">
+              Tailored solutions for unique needs. <br /> If you can imagine it,
+              we can arrange it.
+            </p>
+          </motion.div>
         </div>
-        <div className="font-mono text-[10px] uppercase tracking-widest text-black">
-          Service Coverage: Nigeria & International
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="max-w-350 mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+          <BentoItem
+            colSpan="lg:col-span-2"
+            title="Travel & Mobility"
+            desc="Flight coordination, airport assistance, ground transfers, and private vessel coordination. Global floating routing handled meticulously."
+            imgSrc="/points/point-1.png"
+          />
+          <BentoItem
+            title="Lifestyle"
+            desc="Restaurant reservations, event access, leisure planning, and private dining experiences."
+            imgSrc="/points/point-2.png"
+          />
+          <BentoItem
+            title="Executive"
+            desc="Board travel, executive bubbles, labor securing, and secure digital operations."
+            imgSrc="/points/point-3.png"
+          />
+          <BentoItem
+            colSpan="lg:col-span-2"
+            title="Assets & Property"
+            desc="Home restlessness management, vehicle caretakes, and connascence supervision."
+            imgSrc="/points/point-4.png"
+          />
+        </motion.div>
+      </section>
+
+      <section className="py-24 border-y border-white/5 bg-neutral-900/30">
+        <div className="max-w-350 mx-auto px-6">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-12"
+          >
+            {[
+              {
+                step: "01",
+                title: "Request",
+                text: "Make a request via website, email, or WhatsApp.",
+              },
+              {
+                step: "02",
+                title: "Coordinate",
+                text: "We take over immediately and coordinate execution.",
+              },
+              {
+                step: "03",
+                title: "Deliver",
+                text: "Service delivered seamlessly with real-time updates.",
+              },
+            ].map((item) => (
+              <motion.div
+                key={item.step}
+                variants={fadeInUp}
+                className="relative pl-8 border-l border-white/10 hover:border-[#D4AF37] transition-colors duration-500 group cursor-pointer"
+              >
+                <span className="absolute -left-1.25 top-0 w-2 h-2 bg-[#D4AF37] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="text-[10px] text-neutral-500 group-hover:text-neutral-200 tracking-widest mb-2 block font-mono">
+                  {item.step}
+                </span>
+                <h3
+                  className={`font-sans text-2xl mb-3 text-neutral-300 group-hover:text-white transition-colors`}
+                >
+                  {item.title}
+                </h3>
+                <p className="text-sm text-neutral-500 group-hover:text-neutral-200 transition-colors">
+                  {item.text}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-32 max-w-350 mx-auto px-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="text-center max-w-2xl mx-auto mb-20"
+        >
+          <h2 className={`font-sans text-5xl mb-6`}>Membership</h2>
+          <p className="text-neutral-300 font-light">
+            Choose the level of access that suits your lifestyle. Execution fees
+            and urgent request premiums apply and are communicated upfront.
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          <PricingCard
+            tier="MYGO Essential"
+            price="₦250k"
+            features={[
+              "Access to concierge services",
+              "Pay-per-service execution",
+              "Standard response time",
+              "Business hours support",
+            ]}
+          />
+          <PricingCard
+            tier="MYGO Premium"
+            price="₦1.2M"
+            isPremium={true}
+            features={[
+              "Priority handling",
+              "Dedicated concierge manager",
+              "Preferential access",
+              "24/7 Support",
+              "Zero booking fees",
+            ]}
+          />
+          <motion.div
+            variants={fadeInUp}
+            whileHover={{ y: -10 }}
+            className="p-10 border border-white/10 flex flex-col justify-center items-center text-center bg-neutral-900/50 hover:border-white/20 transition-colors duration-500"
+          >
+            <Shield01Icon
+              size={48}
+              className="text-[#D4AF37] mb-6 opacity-50"
+            />
+            <h4 className="text-[#D4AF37] text-xs uppercase tracking-[0.2em] mb-4">
+              MYGO Corporate
+            </h4>
+            <div className={`font-sans text-4xl mb-6 text-white`}>Custom</div>
+            <p className="text-sm text-neutral-400 mb-8">
+              Multi-user access, account management, and tailored workflows for
+              organizations.
+            </p>
+            <button className="relative font-mono block overflow-hidden group h-fit text-sm uppercase tracking-tight text-gray-400">
+              <span
+                data-text="Contact Sales"
+                className="text-white cursor-pointer block underline
+                  relative
+                  transition-transform 
+                  duration-500 
+                  ease-[cubic-bezier(0.76,0,0.24,1)] 
+                  group-hover:-translate-y-full
+                  
+                  after:content-[attr(data-text)]
+                  after:block
+                  after:absolute
+                  after:left-0
+                  after:top-full
+                  after:text-white
+                  after:underline"
+              >
+                Contact Sales
+              </span>
+            </button>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      <footer className="pt-20 pb-10 border-t border-white/10 bg-[#020202]">
+        <div className="max-w-350 mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+          <div className="col-span-1 md:col-span-2">
+            <Image
+              src="/logo-black.png"
+              width={130}
+              height={30}
+              alt="Mygo logo"
+            />
+            <p className="text-neutral-400 text-sm max-w-xs mb-8">
+              Nigeria-rooted, Global-standard. Premium concierge services for
+              those who value time above all else.
+            </p>
+            <div className="flex gap-4">
+              <motion.div
+                whileHover={{ color: "#D4AF37" }}
+                className="text-neutral-400 cursor-pointer"
+              >
+                <Mail01Icon />
+              </motion.div>
+              <motion.div
+                whileHover={{ color: "#D4AF37" }}
+                className="text-neutral-400 cursor-pointer"
+              >
+                <ComputerIcon />
+              </motion.div>
+            </div>
+          </div>
+
+          <div>
+            <h5 className="text-xs font-bold uppercase tracking-widest text-white mb-6">
+              Contact
+            </h5>
+            <ul className="space-y-4 text-sm text-neutral-500">
+              <li>info@mygo.com</li>
+              <li>Lagos, Nigeria</li>
+              <li className="relative font-mono block overflow-hidden group h-fit text-sm uppercase tracking-tight text-gray-400">
+                <span
+                  data-text="Chat on Whatsapp"
+                  className="text-[#D4AF37] cursor-pointer block 
+                  relative
+                  transition-transform 
+                  duration-500 
+                  ease-[cubic-bezier(0.76,0,0.24,1)] 
+                  group-hover:-translate-y-full
+                  
+                  after:content-[attr(data-text)]
+                  after:block
+                  after:absolute
+                  after:left-0
+                  after:top-full
+                  after:text-[#D4AF37]"
+                >
+                  Chat on WhatsApp
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="max-w-350 mx-auto px-6 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] text-neutral-400 uppercase tracking-widest">
+          <p>© 2026 MYGO Services.</p>
+          <div className="flex gap-8 mt-4 md:mt-0">
+            <Link href="#" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="#" className="hover:text-white transition-colors">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }
