@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
+import "lenis/dist/lenis.css";
+import SmoothScrolling from "@/components/SmoothScrolling";
 
-const inter = Inter({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
+  variable: "--font-serif",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -21,8 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased bg-gray-50`}>
-        {children}
+      <body
+        className={`${manrope.variable} ${playfair.variable} antialiased bg-gray-50`}
+      >
+        <SmoothScrolling>{children}</SmoothScrolling>
       </body>
     </html>
   );
