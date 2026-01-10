@@ -12,11 +12,13 @@ export const PricingCard = ({
   price,
   features,
   isPremium = false,
+  onClick,
 }: {
   tier: string;
   price: string;
   features: string[];
   isPremium?: boolean;
+  onClick?: () => void;
 }) => (
   <motion.div
     variants={fadeInUp}
@@ -56,13 +58,14 @@ export const PricingCard = ({
     </div>
     <motion.button
       whileTap={{ scale: 0.98 }}
+      onClick={onClick}
       className={`w-full mt-10 py-4 text-xs uppercase tracking-widest transition-all ${
         isPremium
           ? "bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.2)]"
           : "border border-white/20 hover:bg-white hover:text-black"
       }`}
     >
-      Select Plan
+      Request Service
     </motion.button>
   </motion.div>
 );
