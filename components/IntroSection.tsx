@@ -45,7 +45,6 @@ const ScrollRevealParagraph = ({ children }: { children: string }) => {
   );
 };
 
-// --- Component for the Title Mask Reveal ---
 const MaskedTitle = () => {
   return (
     <div className="overflow-hidden">
