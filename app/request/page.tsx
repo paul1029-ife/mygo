@@ -298,7 +298,7 @@ export default function RequestPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="flex mb-12 overflow-x-auto pb-2 scrollbar-hide">
+              <div className="flex mb-12 overflow-x-hidden pb-2 scrollbar-hide">
                 <div className="flex bg-white/5 p-1 rounded-full border border-white/5 backdrop-blur-sm">
                   {TABS.map((tab) => (
                     <button
@@ -327,7 +327,6 @@ export default function RequestPage() {
                 </div>
               </div>
 
-              {/* Form Container */}
               <motion.form layout onSubmit={handleSubmit} className="relative">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -337,7 +336,7 @@ export default function RequestPage() {
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.4 }}
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 md:px-2">
                       <AnimatedInput
                         label="Full Name"
                         value={formData.name}

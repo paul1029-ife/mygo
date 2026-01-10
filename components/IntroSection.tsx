@@ -68,9 +68,8 @@ const MaskedTitle = () => {
 export default function IntroSection() {
   return (
     <section className="py-18 md:py-46 bg-[#020202] relative">
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="max-w-350 mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
-          {/* Left: Sticky Title */}
           <div className="lg:sticky lg:top-32 h-fit">
             <MaskedTitle />
             <motion.div
@@ -82,7 +81,6 @@ export default function IntroSection() {
             />
           </div>
 
-          {/* Right: Scroll Scrubbing Text */}
           <div className="space-y-12">
             <ScrollRevealParagraph>
               MYGO is a premium concierge and lifestyle services company built
