@@ -2,12 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Shield01Icon, ComputerIcon, Mail01Icon } from "hugeicons-react";
+import {
+  Shield01Icon,
+  ComputerIcon,
+  Mail01Icon,
+  Time01Icon,
+  Globe02Icon,
+  DashboardSpeed01Icon,
+  Ticket01Icon,
+} from "hugeicons-react";
 import { motion, Transition, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { BentoItem } from "@/components/BentoItem";
 import { PricingCard } from "@/components/PricingCard";
+import IntroSection from "@/components/IntroSection";
+import { useRouter } from "next/navigation";
 const transition: Transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] };
 
 const fadeInUp = {
@@ -26,6 +36,7 @@ const staggerContainer = {
 };
 
 export default function Page() {
+  const router = useRouter();
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -112,10 +123,12 @@ export default function Page() {
                 whileHover={{
                   filter: "brightness(1.1)",
                 }}
+                whileTap={{ scale: 0.98 }}
                 transition={transition}
-                className="px-8 py-4 bg-linear-to-r from-[#B88746] via-[#FDF5A6] to-[#B88746] text-black font-bold uppercase tracking-widest text-sm w-full md:w-auto shadow-[0_0_20px_rgba(212,175,55,0.3)]"
+                onClick={() => router.push("/request")}
+                className="px-6 py-4 bg-linear-to-r from-[#B88746] via-[#FDF5A6] to-[#B88746] text-black font-bold uppercase tracking-widest text-sm w-full md:w-auto shadow-[0_0_20px_rgba(212,175,55,0.3)]"
               >
-                Request Access
+                Request A Service
               </motion.button>
               <motion.button
                 whileHover={{ color: "#D4AF37", borderColor: "#D4AF37" }}
@@ -134,72 +147,53 @@ export default function Page() {
           className="absolute bottom-0 left-0 w-full z-20"
         >
           <div className="max-w-350 mx-auto px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block mb-1">
-                Availability
-              </span>
-              <span className="text-white font-serif text-lg">24/7/365</span>
+            <div className="flex items-center gap-3">
+              <Time01Icon size={24} className="text-[#D4AF37] opacity-80" />
+              <div>
+                <span className="text-xs text-neutral-500 uppercase tracking-widest block mb-1">
+                  Availability
+                </span>
+                <span className="text-white font-serif text-lg">24/7/365</span>
+              </div>
             </div>
-            <div>
-              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block mb-1">
-                Coverage
-              </span>
-              <span className="text-white font-serif text-lg">
-                Global & Local
-              </span>
+
+            <div className="flex items-center gap-3">
+              <Globe02Icon size={24} className="text-[#D4AF37] opacity-80" />
+              <div>
+                <span className="text-xs text-neutral-500 uppercase tracking-widest block mb-1">
+                  Coverage
+                </span>
+                <span className="text-white font-serif text-lg">
+                  Global & Local
+                </span>
+              </div>
             </div>
-            <div className="hidden md:block">
-              <span className="text-[10px] text-neutral-500 uppercase tracking-widest block mb-1">
-                Response
-              </span>
-              <span className="text-white font-serif text-lg">Immediate</span>
+
+            <div className="hidden md:flex items-center gap-3">
+              <DashboardSpeed01Icon
+                size={24}
+                className="text-[#D4AF37] opacity-80"
+              />
+              <div>
+                <span className="text-xs text-neutral-500 uppercase tracking-widest block mb-1">
+                  Response
+                </span>
+                <span className="text-white font-serif text-lg">Immediate</span>
+              </div>
             </div>
             <div className="flex items-center justify-end">
-              <p className="text-[10px] text-[#D4AF37] uppercase tracking-widest text-right">
-                Invitation Only
-              </p>
+              <div className="flex items-center gap-2 border border-[#D4AF37]/30 px-3 py-2 rounded-full bg-[#D4AF37]/5 backdrop-blur-sm">
+                <Ticket01Icon size={14} className="text-[#D4AF37]" />
+                <p className="text-[10px] text-[#D4AF37] uppercase tracking-widest text-right">
+                  Invitation Only
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>
       </section>
 
-      <section className="py-24 md:py-32 bg-[#020202] relative">
-        <div className="max-w-350 mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10%" }}
-            variants={staggerContainer}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2
-                className={`font-sans text-4xl md:text-6xl leading-tight mb-8`}
-              >
-                Concierge.{" "}
-                <span className="text-neutral-600 hover:text-neutral-100 transition-colors ease-in-out duration-300">
-                  Simplified.
-                </span>
-              </h2>
-            </motion.div>
-            <motion.div
-              className="space-y-6 text-neutral-400 hover:text-neutral-300 transition-color ease-in-out duration-300 font-light leading-relaxed text-lg"
-            >
-              <p>
-                <strong className="text-white">MYGO</strong> is a premium
-                concierge and lifestyle services company built around
-                efficiency, discretion, and reliability.
-              </p>
-              <p>
-                At MYGO, we handle the details so you can focus on what truly
-                matters. Every request is handled with care, urgency, and
-                attention to detail. From bespoke travel to daily errands, we
-                are the architects of your free time.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      <IntroSection />
 
       <section className="py-24 bg-[#050505] border-t border-white/5">
         <div className="max-w-350 mx-auto px-6 mb-16 flex justify-between items-end">
@@ -337,6 +331,7 @@ export default function Page() {
           <PricingCard
             tier="MYGO Essential"
             price="₦250k"
+            onClick={() => router.push("/request")}
             features={[
               "Access to concierge services",
               "Pay-per-service execution",
@@ -347,6 +342,7 @@ export default function Page() {
           <PricingCard
             tier="MYGO Premium"
             price="₦1.2M"
+            onClick={() => router.push("/request")}
             isPremium={true}
             features={[
               "Priority handling",
