@@ -22,7 +22,7 @@ export const Navbar = () => (
   >
     <div className="max-w-7xl mx-auto px-3 h-20 flex items-center justify-between">
       <Link href="/">
-        <Image src="/logo-dark.png" width={122} height={20} alt="logo-image" />
+        <Image src="/logo-black.png" width={90} height={20} alt="logo-image" />
       </Link>
 
       <div className="hidden md:flex items-center gap-12 text-[11px] uppercase tracking-[0.25em] font-semibold">
