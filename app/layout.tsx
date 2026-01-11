@@ -3,6 +3,7 @@ import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 import SmoothScrolling from "@/components/SmoothScrolling";
+import { Navbar } from "@/components/Navbar";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${manrope.variable} ${playfair.variable} antialiased bg-gray-50`}
       >
+        <Navbar />
         <SmoothScrolling>{children}</SmoothScrolling>
       </body>
     </html>

@@ -10,9 +10,7 @@ import {
   Call02Icon,
   WhatsappIcon,
 } from "hugeicons-react";
-import { Navbar } from "@/components/Navbar";
 
-// --- Types & Config (Same as before) ---
 type TabType = "essential" | "premium" | "corporate";
 
 const TABS: { id: TabType; label: string }[] = [
@@ -217,8 +215,6 @@ export default function RequestPage() {
         style={{ backgroundImage: "url('/noise.jpg')" }}
       ></div>
 
-      <Navbar />
-
       <section className="relative pt-32 pb-24 px-6 min-h-screen">
         <div className="absolute top-0 right-0 w-150 h-150 bg-[#D4AF37] rounded-full opacity-[0.03] blur-[150px] pointer-events-none" />
 
@@ -298,7 +294,7 @@ export default function RequestPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="flex mb-12 overflow-x-hidden pb-2 scrollbar-hide">
+              <div className="flex mb-12 overflow-x-auto pb-2 scrollbar-hide">
                 <div className="flex bg-white/5 p-1 border border-white/5 backdrop-blur-sm">
                   {TABS.map((tab) => (
                     <button
