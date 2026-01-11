@@ -13,11 +13,11 @@ import {
 } from "hugeicons-react";
 import { motion, Transition, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { Navbar } from "@/components/Navbar";
 import { BentoItem } from "@/components/BentoItem";
 import { PricingCard } from "@/components/PricingCard";
 import IntroSection from "@/components/IntroSection";
 import { useRouter } from "next/navigation";
+import { ProcessSection } from "@/components/ProcessSection";
 const transition: Transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] };
 
 const fadeInUp = {
@@ -54,7 +54,6 @@ export default function Page() {
         style={{ backgroundImage: "url('/noise.jpg')" }}
       ></div>
 
-      <Navbar />
       <section
         ref={targetRef}
         className="relative w-full h-screen min-h-200 flex flex-col justify-center overflow-hidden"
@@ -150,20 +149,20 @@ export default function Page() {
             <div className="flex items-center gap-3">
               <Time01Icon size={24} className="text-[#D4AF37] opacity-80" />
               <div>
-                <span className="text-xs text-neutral-500 uppercase tracking-widest block mb-1">
+                <span className="text-base text-neutral-500 uppercase tracking-widest block mb-1">
                   Availability
                 </span>
-                <span className="text-white font-serif text-lg">24/7/365</span>
+                <span className="text-white font-serif text-2xl">24/7/365</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
               <Globe02Icon size={24} className="text-[#D4AF37] opacity-80" />
               <div>
-                <span className="text-xs text-neutral-500 uppercase tracking-widest block mb-1">
+                <span className="text-base text-neutral-500 uppercase tracking-widest block mb-1">
                   Coverage
                 </span>
-                <span className="text-white font-serif text-lg">
+                <span className="text-white font-serif text-2xl">
                   Global & Local
                 </span>
               </div>
@@ -175,10 +174,12 @@ export default function Page() {
                 className="text-[#D4AF37] opacity-80"
               />
               <div>
-                <span className="text-xs text-neutral-500 uppercase tracking-widest block mb-1">
+                <span className="text-base text-neutral-500 uppercase tracking-widest block mb-1">
                   Response
                 </span>
-                <span className="text-white font-serif text-lg">Immediate</span>
+                <span className="text-white font-serif text-2xl">
+                  Immediate
+                </span>
               </div>
             </div>
             <div className="flex items-center justify-end">
@@ -257,54 +258,7 @@ export default function Page() {
         </motion.div>
       </section>
 
-      <section className="py-24 border-y border-white/5 bg-neutral-900/30">
-        <div className="max-w-350 mx-auto px-6">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-12"
-          >
-            {[
-              {
-                step: "01",
-                title: "Request",
-                text: "Make a request via website, email, or WhatsApp.",
-              },
-              {
-                step: "02",
-                title: "Coordinate",
-                text: "We take over immediately and coordinate execution.",
-              },
-              {
-                step: "03",
-                title: "Deliver",
-                text: "Service delivered seamlessly with real-time updates.",
-              },
-            ].map((item) => (
-              <motion.div
-                key={item.step}
-                variants={fadeInUp}
-                className="relative pl-8 border-l border-white/10 hover:border-[#D4AF37] transition-colors duration-500 group cursor-pointer"
-              >
-                <span className="absolute -left-1.25 top-0 w-2 h-2 bg-[#D4AF37] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="text-[10px] text-neutral-500 group-hover:text-neutral-200 tracking-widest mb-2 block font-mono">
-                  {item.step}
-                </span>
-                <h3
-                  className={`font-sans text-2xl mb-3 text-neutral-300 group-hover:text-white transition-colors`}
-                >
-                  {item.title}
-                </h3>
-                <p className="text-sm text-neutral-500 group-hover:text-neutral-200 transition-colors">
-                  {item.text}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      <ProcessSection />
 
       <section className="py-32 max-w-350 mx-auto px-6">
         <motion.div
