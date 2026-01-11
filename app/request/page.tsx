@@ -10,9 +10,7 @@ import {
   Call02Icon,
   WhatsappIcon,
 } from "hugeicons-react";
-import { Navbar } from "@/components/Navbar";
 
-// --- Types & Config (Same as before) ---
 type TabType = "essential" | "premium" | "corporate";
 
 const TABS: { id: TabType; label: string }[] = [
@@ -216,8 +214,6 @@ export default function RequestPage() {
         className="fixed inset-0 w-full h-full pointer-events-none z-50 opacity-20 mix-blend-overlay"
         style={{ backgroundImage: "url('/noise.jpg')" }}
       ></div>
-
-      <Navbar />
 
       <section className="relative pt-32 pb-24 px-6 min-h-screen">
         <div className="absolute top-0 right-0 w-150 h-150 bg-[#D4AF37] rounded-full opacity-[0.03] blur-[150px] pointer-events-none" />
