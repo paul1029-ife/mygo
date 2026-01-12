@@ -1,11 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import {
   Shield01Icon,
-  ComputerIcon,
-  Mail01Icon,
   Time01Icon,
   Globe02Icon,
   DashboardSpeed01Icon,
@@ -18,6 +15,7 @@ import { PricingCard } from "@/components/PricingCard";
 import IntroSection from "@/components/IntroSection";
 import { useRouter } from "next/navigation";
 import { ProcessSection } from "@/components/ProcessSection";
+import Footer from "@/components/Footer";
 const transition: Transition = { duration: 0.8, ease: [0.22, 1, 0.36, 1] };
 
 const fadeInUp = {
@@ -348,78 +346,7 @@ export default function Page() {
         </motion.div>
       </section>
 
-      <footer className="pt-20 pb-10 border-t border-white/10 bg-[#020202]">
-        <div className="max-w-350 mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-          <div className="col-span-1 md:col-span-2">
-            <Image
-              src="/logo-black.png"
-              width={130}
-              height={30}
-              alt="Mygo logo"
-            />
-            <p className="text-neutral-400 text-sm max-w-xs mb-8">
-              Nigeria-rooted, Global-standard. Premium concierge services for
-              those who value time above all else.
-            </p>
-            <div className="flex gap-4">
-              <motion.div
-                whileHover={{ color: "#D4AF37" }}
-                className="text-neutral-400 cursor-pointer"
-              >
-                <Mail01Icon />
-              </motion.div>
-              <motion.div
-                whileHover={{ color: "#D4AF37" }}
-                className="text-neutral-400 cursor-pointer"
-              >
-                <ComputerIcon />
-              </motion.div>
-            </div>
-          </div>
-
-          <div>
-            <h5 className="text-xs font-bold uppercase tracking-widest text-white mb-6">
-              Contact
-            </h5>
-            <ul className="space-y-4 text-sm text-neutral-500">
-              <li>info@mygo.com</li>
-              <li>Lagos, Nigeria</li>
-              <li className="relative font-mono block overflow-hidden group h-fit text-sm uppercase tracking-tight text-gray-400">
-                <span
-                  data-text="Chat on Whatsapp"
-                  className="text-[#D4AF37] cursor-pointer block 
-                  relative
-                  transition-transform 
-                  duration-500 
-                  ease-[cubic-bezier(0.76,0,0.24,1)] 
-                  group-hover:-translate-y-full
-                  
-                  after:content-[attr(data-text)]
-                  after:block
-                  after:absolute
-                  after:left-0
-                  after:top-full
-                  after:text-[#D4AF37]"
-                >
-                  Chat on WhatsApp
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="max-w-350 mx-auto px-6 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] text-neutral-400 uppercase tracking-widest">
-          <p>© 2026 MYGO Services.</p>
-          <div className="flex gap-8 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="hover:text-white transition-colors">
-              Terms of Service
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

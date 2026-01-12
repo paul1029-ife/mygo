@@ -143,8 +143,8 @@ const StepItem = ({
         className="hidden md:block absolute top-13.5 left-0 w-3 h-3 rounded-full shadow-[0_0_10px_currentColor] z-30"
       />
 
-      <motion.div className="absolute top-0 left-0 -z-10 select-none pointer-events-none">
-        <span className="text-[8rem] md:text-[10rem] font-bold leading-none text-[#1a1a1a] opacity-50">
+      <motion.div className="absolute top-0 left-0 -z-20 select-none pointer-events-none">
+        <span className="text-[8rem] md:text-[10rem] font-bold leading-none text-[#676767] opacity-50">
           {step.id}
         </span>
       </motion.div>
