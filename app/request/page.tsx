@@ -9,16 +9,21 @@ import {
   Loading03Icon,
   Call02Icon,
   WhatsappIcon,
+  AlertCircleIcon,
 } from "hugeicons-react";
 
+// --- CONFIGURATION ---
 const CONTACT_EMAIL = "elite@mygolifestyle.com";
+const PHONE_LINK = "tel:+2348182124686";
+
+// WhatsApp Configuration
 const WA_NUMBER = "2348182124686";
 const WA_MESSAGE =
   "Hey, I want to make a request for ______. What are the details?";
 const WHATSAPP_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
   WA_MESSAGE
 )}`;
-const PHONE_LINK = "tel:+2348182124686";
+// ---------------------
 
 type TabType = "essential" | "premium" | "corporate";
 
@@ -155,26 +160,44 @@ const AnimatedInput = ({
   );
 };
 
-const SuccessToast = ({ onClose }: { onClose: () => void }) => {
+// Generic Toast Component
+const Toast = ({
+  onClose,
+  type,
+  message,
+}: {
+  onClose: () => void;
+  type: "success" | "error";
+  message: string;
+}) => {
+  const isSuccess = type === "success";
+  const iconColor = isSuccess ? "text-[#D4AF37]" : "text-red-500";
+  const borderColor = isSuccess ? "border-[#D4AF37]/30" : "border-red-500/30";
+  const bgBadge = isSuccess ? "bg-[#D4AF37]/10" : "bg-red-500/10";
+  const progressColor = isSuccess ? "bg-[#D4AF37]" : "bg-red-500";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 20, scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="fixed bottom-10 right-6 md:right-10 z-60 bg-[#0A0A0A]/90 backdrop-blur-md border border-[#D4AF37]/30 p-6 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] max-w-sm w-full"
+      className={`fixed bottom-10 right-6 md:right-10 z-60 bg-[#0A0A0A]/90 backdrop-blur-md border ${borderColor} p-6 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] max-w-sm w-full`}
     >
       <div className="flex items-start gap-4">
-        <div className="mt-1 p-2 bg-[#D4AF37]/10 rounded-full text-[#D4AF37]">
-          <CheckmarkCircle02Icon size={20} />
+        <div className={`mt-1 p-2 ${bgBadge} rounded-full ${iconColor}`}>
+          {isSuccess ? (
+            <CheckmarkCircle02Icon size={20} />
+          ) : (
+            <AlertCircleIcon size={20} />
+          )}
         </div>
         <div>
           <h4 className="text-white font-serif text-lg mb-1">
-            Request Initiated
+            {isSuccess ? "Request Submitted" : "Submission Failed"}
           </h4>
           <p className="text-neutral-400 text-sm font-light leading-relaxed">
-            Your email client has been opened. Please hit send to finalize your
-            request.
+            {message}
           </p>
         </div>
         <button
@@ -188,7 +211,7 @@ const SuccessToast = ({ onClose }: { onClose: () => void }) => {
         initial={{ width: "0%" }}
         animate={{ width: "100%" }}
         transition={{ duration: 5 }}
-        className="absolute bottom-0 left-0 h-0.5 bg-[#D4AF37]"
+        className={`absolute bottom-0 left-0 h-0.5 ${progressColor}`}
       />
     </motion.div>
   );
@@ -197,37 +220,55 @@ const SuccessToast = ({ onClose }: { onClose: () => void }) => {
 export default function RequestPage() {
   const [activeTab, setActiveTab] = useState<TabType>("essential");
   const [isLoading, setIsLoading] = useState(false);
-  const [showToast, setShowToast] = useState(false);
+  const [toast, setToast] = useState<{
+    show: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ show: false, type: "success", message: "" });
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
     details: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const subject = encodeURIComponent(
-      `Concierge Request [${activeTab.toUpperCase()}]: ${formData.name}`
-    );
-    const body = encodeURIComponent(
-      `Client Name: ${formData.name}\n` +
-        `Email: ${formData.email}\n` +
-        `Company: ${formData.company || "N/A"}\n\n` +
-        `--- REQUEST DETAILS ---\n` +
-        `${formData.details}`
-    );
-    setTimeout(() => {
-      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          type: activeTab,
+        }),
+      });
 
+      if (response.ok) {
+        setToast({
+          show: true,
+          type: "success",
+          message:
+            "We have received your details. A concierge will reach out shortly.",
+        });
+        setFormData({ name: "", email: "", details: "" });
+      } else {
+        throw new Error("Failed to send");
+      }
+    } catch (error) {
+      setToast({
+        show: true,
+        type: "error",
+        message: "Could not submit form. Please use WhatsApp or Call us.",
+      });
+    } finally {
       setIsLoading(false);
-      setShowToast(true);
-      setFormData({ name: "", email: "", company: "", details: "" });
-      setTimeout(() => setShowToast(false), 5000);
-    }, 1500);
+      setTimeout(() => setToast((prev) => ({ ...prev, show: false })), 5000);
+    }
   };
 
   return (
@@ -272,7 +313,6 @@ export default function RequestPage() {
                     Alternative Channels
                   </p>
 
-                  {/* PHONE INTEGRATION */}
                   <a
                     href={PHONE_LINK}
                     className="flex items-center gap-4 group cursor-pointer w-max"
@@ -293,7 +333,6 @@ export default function RequestPage() {
                     </div>
                   </a>
 
-                  {/* WHATSAPP INTEGRATION */}
                   <a
                     href={WHATSAPP_LINK}
                     target="_blank"
@@ -384,21 +423,6 @@ export default function RequestPage() {
                       />
                     </div>
 
-                    {activeTab === "corporate" && (
-                      <AnimatedInput
-                        label="Company Name"
-                        value={formData.company}
-                        onChange={(e) =>
-                          setFormData({ ...formData, company: e.target.value })
-                        }
-                        placeholders={[
-                          "Wayne Enterprises",
-                          "Stark Industries",
-                          "Massive Dynamic",
-                        ]}
-                      />
-                    )}
-
                     <AnimatedInput
                       label="Request Details"
                       value={formData.details}
@@ -432,7 +456,13 @@ export default function RequestPage() {
       </section>
 
       <AnimatePresence>
-        {showToast && <SuccessToast onClose={() => setShowToast(false)} />}
+        {toast.show && (
+          <Toast
+            type={toast.type}
+            message={toast.message}
+            onClose={() => setToast((prev) => ({ ...prev, show: false }))}
+          />
+        )}
       </AnimatePresence>
 
       <footer className="pt-14 pb-10 border-t border-white/10 bg-[#020202]">
@@ -445,7 +475,6 @@ export default function RequestPage() {
               size={16}
               className="text-neutral-500 cursor-pointer hover:text-[#D4AF37] transition-colors"
             />
-            {/* EMAIL INTEGRATION */}
             <a href={`mailto:${CONTACT_EMAIL}`} aria-label="Send us an email">
               <Mail01Icon
                 size={16}
