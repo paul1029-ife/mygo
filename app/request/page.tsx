@@ -11,6 +11,15 @@ import {
   WhatsappIcon,
 } from "hugeicons-react";
 
+const CONTACT_EMAIL = "elite@mygolifestyle.com";
+const WA_NUMBER = "2348182124686";
+const WA_MESSAGE =
+  "Hey, I want to make a request for ______. What are the details?";
+const WHATSAPP_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+  WA_MESSAGE
+)}`;
+const PHONE_LINK = "tel:+2348182124686";
+
 type TabType = "essential" | "premium" | "corporate";
 
 const TABS: { id: TabType; label: string }[] = [
@@ -161,11 +170,11 @@ const SuccessToast = ({ onClose }: { onClose: () => void }) => {
         </div>
         <div>
           <h4 className="text-white font-serif text-lg mb-1">
-            Request Received
+            Request Initiated
           </h4>
           <p className="text-neutral-400 text-sm font-light leading-relaxed">
-            Your concierge has been notified. We will coordinate your request
-            immediately.
+            Your email client has been opened. Please hit send to finalize your
+            request.
           </p>
         </div>
         <button
@@ -200,12 +209,25 @@ export default function RequestPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+
+    const subject = encodeURIComponent(
+      `Concierge Request [${activeTab.toUpperCase()}]: ${formData.name}`
+    );
+    const body = encodeURIComponent(
+      `Client Name: ${formData.name}\n` +
+        `Email: ${formData.email}\n` +
+        `Company: ${formData.company || "N/A"}\n\n` +
+        `--- REQUEST DETAILS ---\n` +
+        `${formData.details}`
+    );
     setTimeout(() => {
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+
       setIsLoading(false);
       setShowToast(true);
       setFormData({ name: "", email: "", company: "", details: "" });
       setTimeout(() => setShowToast(false), 5000);
-    }, 2000);
+    }, 1500);
   };
 
   return (
@@ -250,7 +272,11 @@ export default function RequestPage() {
                     Alternative Channels
                   </p>
 
-                  <div className="flex items-center gap-4 group cursor-pointer">
+                  {/* PHONE INTEGRATION */}
+                  <a
+                    href={PHONE_LINK}
+                    className="flex items-center gap-4 group cursor-pointer w-max"
+                  >
                     <div className="p-3 border border-white/10 rounded-full group-hover:border-[#D4AF37] transition-colors duration-300">
                       <Call02Icon
                         size={18}
@@ -258,16 +284,22 @@ export default function RequestPage() {
                       />
                     </div>
                     <div>
-                      <span className="block text-sm text-white">
-                        +234 (0) 800 MYGO VIP
+                      <span className="block text-sm text-white font-sans tracking-wide">
+                        +234 818 212 4686
                       </span>
                       <span className="text-[10px] text-neutral-500 uppercase tracking-wider">
                         Urgent Requests
                       </span>
                     </div>
-                  </div>
+                  </a>
 
-                  <div className="flex items-center gap-4 group cursor-pointer">
+                  {/* WHATSAPP INTEGRATION */}
+                  <a
+                    href={WHATSAPP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 group cursor-pointer w-max"
+                  >
                     <div className="p-3 border border-white/10 rounded-full group-hover:border-[#D4AF37] transition-colors duration-300">
                       <WhatsappIcon
                         size={18}
@@ -282,7 +314,7 @@ export default function RequestPage() {
                         Direct Chat
                       </span>
                     </div>
-                  </div>
+                  </a>
                 </div>
               </motion.div>
             </div>
@@ -413,10 +445,13 @@ export default function RequestPage() {
               size={16}
               className="text-neutral-500 cursor-pointer hover:text-[#D4AF37] transition-colors"
             />
-            <Mail01Icon
-              size={16}
-              className="text-neutral-500 cursor-pointer hover:text-[#D4AF37] transition-colors"
-            />
+            {/* EMAIL INTEGRATION */}
+            <a href={`mailto:${CONTACT_EMAIL}`} aria-label="Send us an email">
+              <Mail01Icon
+                size={16}
+                className="text-neutral-500 cursor-pointer hover:text-[#D4AF37] transition-colors"
+              />
+            </a>
           </div>
         </div>
       </footer>
