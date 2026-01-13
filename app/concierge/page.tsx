@@ -231,7 +231,7 @@ function ServiceItem({ service, index, isActive, onHover }: ServiceItemProps) {
     >
       <div className="flex justify-between items-start mb-6">
         <div className="flex items-baseline gap-6">
-          <span className="font-mono text-xs text-[#D4AF37]">0{index + 1}</span>
+          <span className="font-mono text-xl text-[#D4AF37]">0{index + 1}</span>
           <h2 className="font-sans text-4xl md:text-5xl text-white group-hover:translate-x-4 transition-transform duration-500 ease-out">
             {service.title}
           </h2>

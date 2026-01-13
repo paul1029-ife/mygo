@@ -130,6 +130,7 @@ export default function Page() {
               <motion.button
                 whileHover={{ color: "#D4AF37", borderColor: "#D4AF37" }}
                 className="px-6 py-4 border-b border-white/30 text-white text-[11px] uppercase tracking-[0.2em] text-left sm:text-center w-fit"
+                onClick={() => router.push("/#membership")}
               >
                 Explore Membership
               </motion.button>
@@ -258,7 +259,7 @@ export default function Page() {
 
       <ProcessSection />
 
-      <section className="py-32 max-w-350 mx-auto px-6">
+      <section className="py-32 max-w-350 mx-auto px-6" id="membership">
         <motion.div
           initial="hidden"
           whileInView="visible"

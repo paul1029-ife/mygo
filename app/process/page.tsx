@@ -3,8 +3,8 @@
 import { ReactElement, useRef, useState } from "react";
 import {
   Comment01Icon,
-  Search01Icon,
-  CreditCardAcceptIcon,
+  ChefIcon,
+  CheckmarkBadge03Icon,
   Rocket01Icon,
   Add01Icon,
   MinusSignIcon,
@@ -44,7 +44,7 @@ const steps: Step[] = [
     subtitle: "Orchestration",
     description:
       "Our team leverages global networks to source options, negotiate terms, and curate a tailored itinerary.",
-    icon: <Search01Icon size={24} />,
+    icon: <ChefIcon size={24} />,
   },
   {
     id: "03",
@@ -52,7 +52,7 @@ const steps: Step[] = [
     subtitle: "Approval",
     description:
       "Review the options. Once you approve, we handle all logistics, payments, and compliance immediately.",
-    icon: <CreditCardAcceptIcon size={24} />,
+    icon: <CheckmarkBadge03Icon size={24} />,
   },
   {
     id: "04",
