@@ -78,7 +78,7 @@ export const Navbar = () => {
         initial="hidden"
         animate="visible"
         variants={navVariants}
-        className="fixed top-0 w-full z-50 text-white mix-blend-difference backdrop-blur-xs"
+        className="fixed top-0 w-full z-50 text-white backdrop-blur-xs"
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="relative z-50">
@@ -87,11 +87,10 @@ export const Navbar = () => {
               width={90}
               height={20}
               alt="logo-image"
-              className="invert dark:invert-0"
+              className=""
             />
           </Link>
 
-          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-12 text-[11px] uppercase tracking-[0.25em] font-semibold">
             {navLinks.map((item, i) => {
               const isActive = pathname === item.href;
