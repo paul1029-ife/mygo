@@ -11,19 +11,18 @@ import {
   WhatsappIcon,
   AlertCircleIcon,
 } from "hugeicons-react";
+import Footer from "@/components/Footer";
 
 // --- CONFIGURATION ---
 const CONTACT_EMAIL = "elite@mygolifestyle.com";
 const PHONE_LINK = "tel:+2348182124686";
 
-// WhatsApp Configuration
 const WA_NUMBER = "2348182124686";
 const WA_MESSAGE =
   "Hey, I want to make a request for ______. What are the details?";
-const WHATSAPP_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+export const WHATSAPP_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
   WA_MESSAGE
 )}`;
-// ---------------------
 
 type TabType = "essential" | "premium" | "corporate";
 
@@ -465,25 +464,7 @@ export default function RequestPage() {
         )}
       </AnimatePresence>
 
-      <footer className="pt-14 pb-10 border-t border-white/10 bg-[#020202]">
-        <div className="max-w-350 mx-auto px-6 flex flex-col md:flex-row justify-between items-center opacity-40 hover:opacity-100 transition-opacity duration-500">
-          <div className="text-neutral-500 text-xs tracking-widest uppercase">
-            © 2026 MYGO Services.
-          </div>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <Globe02Icon
-              size={16}
-              className="text-neutral-500 cursor-pointer hover:text-[#D4AF37] transition-colors"
-            />
-            <a href={`mailto:${CONTACT_EMAIL}`} aria-label="Send us an email">
-              <Mail01Icon
-                size={16}
-                className="text-neutral-500 cursor-pointer hover:text-[#D4AF37] transition-colors"
-              />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }
