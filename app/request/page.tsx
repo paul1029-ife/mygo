@@ -4,8 +4,6 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   CheckmarkCircle02Icon,
-  Globe02Icon,
-  Mail01Icon,
   Loading03Icon,
   Call02Icon,
   WhatsappIcon,
@@ -13,11 +11,10 @@ import {
 } from "hugeicons-react";
 import Footer from "@/components/Footer";
 
-// --- CONFIGURATION ---
 const CONTACT_EMAIL = "elite@mygolifestyle.com";
-const PHONE_LINK = "tel:+2348182124686";
+const PHONE_LINK = "tel:+2348173182409";
 
-const WA_NUMBER = "2348182124686";
+const WA_NUMBER = "2348173182409";
 const WA_MESSAGE =
   "Hey, I want to make a request for ______. What are the details?";
 export const WHATSAPP_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
