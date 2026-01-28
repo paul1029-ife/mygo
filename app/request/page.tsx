@@ -11,14 +11,13 @@ import {
 } from "hugeicons-react";
 import Footer from "@/components/Footer";
 
-const CONTACT_EMAIL = "elite@mygolifestyle.com";
-const PHONE_LINK = "tel:+2348173182409";
+const PHONE_LINK = "tel:++2347072578416";
 
-const WA_NUMBER = "2348173182409";
+const WA_NUMBER = "2347072578416";
 const WA_MESSAGE =
   "Hey, I want to make a request for ______. What are the details?";
 export const WHATSAPP_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
-  WA_MESSAGE
+  WA_MESSAGE,
 )}`;
 
 type TabType = "essential" | "premium" | "corporate";
@@ -62,7 +61,7 @@ const AnimatedInput = ({
   label: string;
   value: string;
   onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   placeholders: string[];
   type?: string;
@@ -83,11 +82,14 @@ const AnimatedInput = ({
 
     if (typingPhase === "typing") {
       if (displayedPlaceholder.length < currentFullText.length) {
-        timeout = setTimeout(() => {
-          setDisplayedPlaceholder(
-            currentFullText.slice(0, displayedPlaceholder.length + 1)
-          );
-        }, 50 + Math.random() * 30);
+        timeout = setTimeout(
+          () => {
+            setDisplayedPlaceholder(
+              currentFullText.slice(0, displayedPlaceholder.length + 1),
+            );
+          },
+          50 + Math.random() * 30,
+        );
       } else {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setTypingPhase("pause");
